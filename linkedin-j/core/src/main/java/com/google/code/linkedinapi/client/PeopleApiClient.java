@@ -95,6 +95,18 @@ public interface PeopleApiClient extends LinkedInAuthenticationClient {
      * @return the profile by id
      */
     public Person getProfileById(String id, Set<ProfileField> profileFields);
+
+    /**
+     * Gets the profile by id.
+     * For details see <a href="http://developer.linkedin.com/docs/DOC-1002">http://developer.linkedin.com/docs/DOC-1002</a>
+     *
+     * @param id the id
+     * @param profileFields the profile fields
+     * @param count the number of relation to viewers to return if specified in profileFields
+     *
+     * @return the profile by id
+     */
+    public Person getProfileById(String id, Set<ProfileField> profileFields, int count, int start);
     
     /**
      * Gets the profile by url.

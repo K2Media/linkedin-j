@@ -1071,6 +1071,23 @@ public abstract class BaseLinkedInApiClient implements LinkedInApiClient {
      * {@inheritDoc}
      */
     @Override
+    public Person getProfileById(String id, Set<ProfileField> profileFields, int count, int start) {
+        assertNotNullOrEmpty("id", id);
+        assertNotNull("profile fields", profileFields);
+
+        LinkedInApiUrlBuilder builder = createLinkedInApiUrlBuilder(LinkedInApiUrls.GET_PROFILE_BY_ID);
+        String                apiUrl  = builder.withField(ParameterNames.ID, id).withFieldEnum(ParameterNames.PROFILE_TYPE,
+                                            ProfileType.STANDARD).withFieldEnumSet(ParameterNames.FIELD_SELECTORS,
+                                                profileFields).withParameter(ParameterNames.START, String.valueOf(start)).withParameter(ParameterNames.COUNT,
+                                                String.valueOf(count)).buildUrl();
+
+        return readResponse(Person.class, callApiMethod(apiUrl));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Person getProfileByUrl(String url, ProfileType profileType) {
         assertNotNullOrEmpty("url", url);
         assertNotNull("profile type", profileType);
